@@ -9,7 +9,12 @@
 /dist
 /tags
 /lib
-/nbproject
+.travis.yml
+build.properties
+build.xml
+.gitignore
+.gitattributes
+.editorconfig
 *.mo
 
 # IDE and editor specific files #

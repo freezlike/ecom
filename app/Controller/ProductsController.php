@@ -22,7 +22,10 @@ class ProductsController extends AppController {
             'Product.created' => 'DESC'
         )
     );
-
+    public function admin_index(){
+        $products = $this->Product->find('all');
+        $this->set(compact('products'));
+    }
     public function index() {
         $this->Paginator->settings = $this->paginate;
         // similaire à un findAll(), mais récupère les résultats paginés
