@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Routage Basic
+ */
 Router::connect('/', array('controller' => 'pages', 'action' => 'home'));
 Router::connect('/product', array('controller' => 'products', 'action' => 'index'));
 Router::connect('/login', array('controller' => 'users', 'action' => 'login'));
