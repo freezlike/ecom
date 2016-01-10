@@ -26,6 +26,12 @@ class ProductsController extends AppController {
         $products = $this->Product->find('all');
         $this->set(compact('products'));
     }
+    public function admin_show($id = null){
+        $this->Product->id = $id;
+        if(!$this->Product->exists()){
+            
+        }
+    }
     public function index() {
         $this->Paginator->settings = $this->paginate;
         // similaire à un findAll(), mais récupère les résultats paginés
