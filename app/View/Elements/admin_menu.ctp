@@ -48,12 +48,27 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Catégories <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="<?php echo $this->Html->url(array('controller' => 'posts', 'action' => 'add')); ?>">
+                            <a href="<?php echo $this->Html->url(array('controller' => 'categories', 'action' => 'add')); ?>">
                                 Ajouter une Catégorie
                             </a>
                         </li>
                         <li>
-                            <a href="<?php echo $this->Html->url(array('controller' => 'posts', 'action' => 'index')); ?>">
+                            <a href="<?php echo $this->Html->url(array('controller' => 'categories', 'action' => 'index')); ?>">
+                                Liste des Catégories
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Marques <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="<?php echo $this->Html->url(array('controller' => 'marques', 'action' => 'add')); ?>">
+                                Ajouter une Catégorie
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?php echo $this->Html->url(array('controller' => 'marques', 'action' => 'index')); ?>">
                                 Liste des Catégories
                             </a>
                         </li>

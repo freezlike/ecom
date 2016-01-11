@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-8">
         <div class="page-header">
             <h3><?php echo __("Liste des Produits"); ?></h3>
         </div>
@@ -33,14 +33,16 @@
                                 <i class="glyphicon glyphicon-eye-open"></i>
                             </a>
                             &nbsp;
-                            <?php echo $this->Form->postLink(null, array('action' => 'delete', 'id' => $product['Product']['id']), array('class' => 'glyphicon glyphicon-remove'), __('Etes-vous sûr que vous voulez supprimer # %s?', $product['Product']['id'])); ?>
+                            <a href="<?php echo $this->Html->url(array('action' => 'edit', 'id' => $product['Product']['id'])); ?>">
+                                <i class="glyphicon glyphicon-remove"></i>
+                            </a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div class="page-header">
             <h3><?php echo __("Actions"); ?></h3>
         </div>

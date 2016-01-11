@@ -22,10 +22,14 @@ Router::connect('/gestion-products/show-:id', array('controller' => 'products', 
  * Routage Category
  */
 Router::connect('/gestion-categories', array('controller' => 'categories', 'action' => 'index', 'admin' => true));
+Router::connect('/gestion-categories/add', array('controller' => 'categories', 'action' => 'add', 'admin' => true));
+Router::connect('/gestion-categories/edit-:id', array('controller' => 'categories', 'action' => 'edit', 'admin' => true), array('pass' => array('id'), 'id' => '[0-9]+'));
 /**
  * Routage Marque
  */
 Router::connect('/gestion-marques', array('controller' => 'marques', 'action' => 'index', 'admin' => true));
+Router::connect('/gestion-marques/add', array('controller' => 'marques', 'action' => 'add', 'admin' => true));
+Router::connect('/gestion-marques/edit-:id', array('controller' => 'marques', 'action' => 'edit', 'admin' => true), array('pass' => array('id'), 'id' => '[0-9]+'));
 
 
 /**
