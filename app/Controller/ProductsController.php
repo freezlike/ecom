@@ -148,38 +148,54 @@ class ProductsController extends AppController {
         }
     }
 
+    public function sort_by_cat($cat = null) {
+        if (!empty($cat)) {
+            $c = $this->Product->Category->find('first', array('Category.slug' => $cat));
+            $this->Paginator->settings = array(
+                'conditions' => array('Product.category_id' => $c['Category']['id']),
+                'limit' => 25,
+                'order' => array(
+                    'Product.created' => 'DESC'
+                )
+            );
+            $data = $this->Paginator->paginate('Product');
+            if (!empty($data)) {
+                $this->set('products', $data);
+            } else {
+                $this->redirect(array('action' => 'index'));
+            }
+        } else {
+            $this->redirect(array('action' => 'index'));
+        }
+    }
+
+    public function sort_by_marque($marque = null) {
+        if (!empty($cat)) {
+            $m = $this->Product->Marque->find('first', array('Marque.slug' => $marque));
+            $this->Paginator->settings = array(
+                'conditions' => array('Product.category_id' => $m['Marque']['id']),
+                'limit' => 25,
+                'order' => array(
+                    'Product.created' => 'DESC'
+                )
+            );
+            $data = $this->Paginator->paginate('Product');
+            if (!empty($data)) {
+                $this->set('products', $data);
+            } else {
+                $this->redirect(array('action' => 'index'));
+            }
+        } else {
+            $this->redirect(array('action' => 'index'));
+        }
+    }
+
     public function sort_by($cat = null, $marque = null) {
         if (!empty($cat) && !empty($marque)) {
+            $c = $this->Product->Category->find('first', array('Category.slug' => $cat));
+            $m = $this->Product->Marque->find('first', array('Marque.slug' => $marque));
             $this->Paginator->settings = array(
-                'conditions' => array('Product.category_id' => $cat, 'Product.marque_id' => $marque),
-                'limit' => 25,
-                'order' => array(
-                    'Product.created' => 'DESC'
-                )
-            );
-            $data = $this->Paginator->paginate('Product');
-            if (!empty($data)) {
-                $this->set('products', $data);
-            } else {
-                $this->redirect(array('action' => 'index'));
-            }
-        } elseif (!empty($cat)) {
-            $this->Paginator->settings = array(
-                'conditions' => array('Product.category_id' => $cat),
-                'limit' => 25,
-                'order' => array(
-                    'Product.created' => 'DESC'
-                )
-            );
-            $data = $this->Paginator->paginate('Product');
-            if (!empty($data)) {
-                $this->set('products', $data);
-            } else {
-                $this->redirect(array('action' => 'index'));
-            }
-        } elseif (!empty($marque)) {
-            $this->Paginator->settings = array(
-                'conditions' => array('Product.marque_id' => $marque),
+                'conditions' => array('Product.category_id' => $c['Category']['id'], 'Product.marque_id' => $m['Marque']['id']),
                 'limit' => 25,
                 'order' => array(
                     'Product.created' => 'DESC'

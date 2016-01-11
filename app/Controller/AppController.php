@@ -4,7 +4,8 @@ App::uses('Controller', 'Controller');
 
 class AppController extends Controller {
 
-    public $components = array('Flash', 'Session', 'Auth','Img');
+    public $components = array('Flash', 'Session', 'Auth', 'Img');
+    public $uses = array('Category', 'Product');
 
     public function beforeFilter() {
         parent::beforeFilter();
@@ -22,6 +23,8 @@ class AppController extends Controller {
             $this->layout = 'admin';
         } else {
             // Pour le layout public
+            $this->set('categories', $this->Category->find('all', array('order' => array('Category.created DESC'))));
+            $this->set('promoted', $this->Product->find('all', array('conditions' => array('Product.isPromoted' => true), 'order' => array('Product.created DESC'))));
             $this->layout = 'default';
         }
     }

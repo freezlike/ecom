@@ -18,8 +18,8 @@ class CategoriesController extends AppController {
 
     //Admin Actions
     public function admin_index() {
-        $marques = $this->Category->find('all');
-        $this->set(compact('marques'));
+        $categories = $this->Category->find('all');
+        $this->set(compact('categories'));
     }
 
     public function admin_add() {

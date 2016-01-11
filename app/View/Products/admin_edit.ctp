@@ -23,6 +23,12 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="control-label col-sm-2 pull-left"><?php echo __("Prix"); ?></label>
+            <div class="col-sm-10">
+                <?php echo $this->Form->input('price', array('class' => 'form-control', 'placeholder' => __("Slug"))); ?>
+            </div>
+        </div>
+        <div class="form-group">
             <label class="control-label col-sm-2 pull-left"><?php echo __("Description"); ?></label>
             <div class="col-sm-10">
                 <?php echo $this->Form->input('description', array('class' => 'form-control', 'placeholder' => __("Description"))); ?>

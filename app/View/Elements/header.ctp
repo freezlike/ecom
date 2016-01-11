@@ -32,15 +32,36 @@
                 <div class="clearfix"> </div>
             </div>
             <div class="header-bottom-right">					
-                <div class="account">
-                    <a href="<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'login'), true); ?>"><span> </span>
-                        <?php echo __("Votre Compte"); ?>
-                    </a></div>
-                <ul class="login">
-                    <li><a href="<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'login'), true); ?>"><span></span><?php echo __("Connexion"); ?></a></li> |
-                    <li ><a href="register.html"><?php echo __("Inscription"); ?></a></li>
-                </ul>
-                <div class="cart"><a href="#"><span> </span><?php echo __("Panier"); ?></a></div>
+                <?php if (!empty($this->Session->read('Auth'))): ?>
+                    <div class="account">
+                        <a href="<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'my_account'), true); ?>"><span> </span>
+                            <?php echo $this->Session->read('Auth.User.full_name'); ?>
+                        </a>
+                    </div>
+                    <ul class="login">
+                        <li><a href="<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'logout'), true); ?>"><span></span><?php echo __("Déconnexion"); ?></a></li>
+                    </ul>
+                    <div class="cart"><a href="<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'panier')); ?>">
+                            <span> </span><?php echo __("Panier"); ?>&nbsp;
+                            <?php if (empty($this->Session->read('panier'))): ?>
+                                (0)
+                            <?php else: ?>
+
+                            <?php endif; ?>
+                        </a>
+                    </div>
+                <?php else: ?>
+                    <div class="account">
+                        <a href="<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'login'), true); ?>"><span> </span>
+                            <?php echo __("Votre Compte"); ?>
+                        </a>
+                    </div>
+                    <ul class="login">
+                        <li><a href="<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'login'), true); ?>"><span></span><?php echo __("Connexion"); ?></a></li> |
+                        <li ><a href="register.html"><?php echo __("Inscription"); ?></a></li>
+                    </ul>
+                    <div class="cart"><a href="#"><span> </span><?php echo __("Panier"); ?></a></div>
+                <?php endif; ?>
                 <div class="clearfix"> </div>
             </div>
             <div class="clearfix"> </div>	

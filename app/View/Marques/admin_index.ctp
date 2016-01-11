@@ -6,34 +6,28 @@
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
-                    <th><?php echo __("Nom Produit"); ?></th>
-                    <th><?php echo __("Marque"); ?></th>
-                    <th><?php echo __("Catégorie"); ?></th>
-                    <th><?php echo __("Prix"); ?></th>
+                    <th><?php echo __("Nom"); ?></th>
                     <th><?php echo __("Date de création"); ?></th>
                     <th><?php echo __("Date de modification"); ?></th>
                     <th><?php echo __("Actions"); ?></th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($products as $product): ?>
+                <?php foreach ($marques as $marque): ?>
                     <tr>
-                        <td><?php echo $product['Product']['name']; ?></td>
-                        <td><?php echo $product['Marque']['name']; ?></td>
-                        <td><?php echo $product['Category']['name']; ?></td>
-                        <td><?php echo $product['Product']['price']; ?></td>
-                        <td><?php echo $product['Product']['created']; ?></td>
-                        <td><?php echo $product['Product']['modified']; ?></td>
+                        <td><?php echo $marque['Marque']['name']; ?></td>
+                        <td><?php echo $marque['Marque']['created']; ?></td>
+                        <td><?php echo $marque['Marque']['modified']; ?></td>
                         <td>
-                            <a href="<?php echo $this->Html->url(array('action' => 'edit', 'id' => $product['Product']['id'])); ?>">
+                            <a href="<?php echo $this->Html->url(array('action' => 'edit', 'id' => $marque['Marque']['id'])); ?>">
                                 <i class="glyphicon glyphicon-edit"></i>
                             </a>
                             &nbsp;
-                            <a href="<?php echo $this->Html->url(array('action' => 'show', 'id' => $product['Product']['id'])); ?>">
+                            <a href="<?php echo $this->Html->url(array('action' => 'show', 'id' => $marque['Marque']['id'])); ?>">
                                 <i class="glyphicon glyphicon-eye-open"></i>
                             </a>
                             &nbsp;
-                            <a href="<?php echo $this->Html->url(array('action' => 'edit', 'id' => $product['Product']['id'])); ?>">
+                            <a href="<?php echo $this->Html->url(array('action' => 'edit', 'id' => $marque['Marque']['id'])); ?>">
                                 <i class="glyphicon glyphicon-remove"></i>
                             </a>
                         </td>

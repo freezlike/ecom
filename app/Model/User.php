@@ -9,6 +9,10 @@ App::uses('AppModel', 'Model');
  */
 class User extends AppModel {
 
+    public $virtualFields = array('full_name' => 'CONCAT(User.last_name ," ", User.first_name)');
+    //The Associations below have been created with all possible keys, those that are not needed can be removed
+    public $displayField = "full_name";
+
     /**
      * Validation rules
      *
@@ -111,6 +115,27 @@ class User extends AppModel {
             'conditions' => '',
             'fields' => '',
             'order' => ''
+        )
+    );
+
+    /**
+     * hasMany associations
+     *
+     * @var array
+     */
+    public $hasMany = array(
+        'Commande' => array(
+            'className' => 'Commande',
+            'foreignKey' => 'user_id',
+            'dependent' => false,
+            'conditions' => '',
+            'fields' => '',
+            'order' => '',
+            'limit' => '',
+            'offset' => '',
+            'exclusive' => '',
+            'finderQuery' => '',
+            'counterQuery' => ''
         )
     );
 

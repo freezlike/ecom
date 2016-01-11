@@ -4,9 +4,13 @@
         <ul class="menu">
             <li>
                 <ul class="kid-menu" style="display: none;">
-                    <li><a href="product.html">Tempus pretium</a></li>
-                    <li><a href="product.html">Dignissim neque</a></li>
-                    <li><a href="product.html">Ornared id aliquet</a></li>
+                    <?php foreach ($categories as $category): ?>
+                        <li>
+                            <a href="<?php echo $this->Html->url(array('controller' => 'products', 'action' => 'sort_by_cat', 'cat' => $category['Category']['slug'])); ?>">
+                                <?php echo $category['Category']['name']; ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
                 </ul>
             </li>
         </ul>

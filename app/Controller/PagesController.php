@@ -4,7 +4,7 @@ App::uses('AppController', 'Controller');
 
 class PagesController extends AppController {
 
-    public $uses = array();
+    public $uses = array('Commande');
 
     public function home() {
         

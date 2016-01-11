@@ -56,9 +56,19 @@ class UsersController extends AppController {
         }die();
     }
 
+    public function panier() {
+        $user_id = $this->Auth->user('id');
+        $commande = $this->User->Commande->find('all');
+        $this->set(compact('commande'));
+    }
+
+    public function my_account() {
+        
+    }
+
     public function logout() {
         $this->Auth->logout();
-        $this->redirect(array('controller'=>'pages','action'=>'home'));
+        $this->redirect(array('controller' => 'pages', 'action' => 'home'));
     }
 
 }
