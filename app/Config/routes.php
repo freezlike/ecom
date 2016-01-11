@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Routage Basic
  */
@@ -14,6 +15,8 @@ Router::connect('/gestion-users', array('controller' => 'users', 'action' => 'in
  * Routage Product
  */
 Router::connect('/gestion-products', array('controller' => 'products', 'action' => 'index', 'admin' => true));
+Router::connect('/gestion-products/add', array('controller' => 'products', 'action' => 'add', 'admin' => true));
+Router::connect('/gestion-products/edit-:id', array('controller' => 'products', 'action' => 'edit', 'admin' => true), array('pass' => array('id'), 'id' => '[0-9]+'));
 /**
  * Routage Category
  */

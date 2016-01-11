@@ -1,11 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 App::uses('AppController', 'Controller');
 
 /**
@@ -22,19 +16,79 @@ class ProductsController extends AppController {
             'Product.created' => 'DESC'
         )
     );
-    public function admin_index(){
+
+    // Admin Actions
+    public function admin_index() {
         $products = $this->Product->find('all');
         $this->set(compact('products'));
     }
-    public function admin_show($id = null){
+
+    public function admin_show($id = null) {
         $this->Product->id = $id;
-        if(!$this->Product->exists()){
-            
+        if (!$this->Product->exists()) {
+            $this->Flash->set(__("Produit non existant"), array(
+                'element' => 'notif',
+                'params' => array('class' => 'error')
+            ));
+            $this->redirect(array('action' => 'index', 'admin' => true));
         }
     }
+
+    public function admin_add() {
+        if ($this->request->is(array('post'))) {
+            if ($this->Product->save($this->request->data)) {
+                $this->Flash->set(__("Produit Ajouté avec succès"), array(
+                    'element' => 'notif'
+                ));
+                $this->redirect(array('action' => 'index', 'admin' => true));
+            }
+        }
+        $marques = $this->Product->Marque->find('list');
+        $categories = $this->Product->Category->find('list');
+        $this->set(compact('marques', 'categories'));
+    }
+
+    public function admin_edit($id = null) {
+        $this->Product->id = $id;
+        if (!$this->Product->exists()) {
+            $this->Flash->set(__("Ce Produit n'existe pas"), array(
+                'element' => 'notif',
+                'params' => array('class' => 'error')
+            ));
+        }
+        if ($this->request->is(array('put'))) {
+            if ($this->Product->save($this->request->data)) {
+                $this->Flash->set(__("Produit Modifié avec succès"), array(
+                    'element' => 'notif'
+                ));
+                $this->redirect(array('action' => 'index', 'admin' => true));
+            }
+        }
+        $marques = $this->Product->Marque->find('list');
+        $categories = $this->Product->Category->find('list');
+        $this->set(compact('marques', 'categories'));
+    }
+
+    public function admin_delete($id = null) {
+        $this->Product->id = $id;
+        if (!$this->Product->exists()) {
+            $this->Flash->set(__("Ce Produit n'existe pas"), array(
+                'element' => 'notif',
+                'params' => array('class' => 'error')
+            ));
+        }
+        if ($this->Product->delete()) {
+            $this->Flash->set(__("Message"), array(
+                'element' => 'notif'
+            ));
+            $this->redirect(array('action' => 'index', 'admin' => true));
+        }
+    }
+
+    //Public Actions
+
     public function index() {
         $this->Paginator->settings = $this->paginate;
-        // similaire à un findAll(), mais récupère les résultats paginés
         $data = $this->Paginator->paginate('Product');
         $this->set('products', $data);
     }
