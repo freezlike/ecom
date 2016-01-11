@@ -73,3 +73,12 @@
         </ul>
     </div>
 </div>
+<?php echo $this->Html->script('functions', array('inline' => false)); ?>
+<?php echo $this->Html->scriptStart(array('inline' => false)); ?>
+$('#ProductName').keyup(function(){
+var slug = $('input#ProductName').val();
+//slug = slug.replace(/ /g, "-");
+slug = slugMe(slug);
+$('#ProductSlug').val(slug);
+});
+<?php echo $this->Html->scriptEnd(); ?>
