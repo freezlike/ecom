@@ -32,11 +32,36 @@ class ProductsController extends AppController {
             ));
             $this->redirect(array('action' => 'index', 'admin' => true));
         }
+        $this->set('product', $this->Product->read());
     }
 
     public function admin_add() {
         if ($this->request->is(array('post'))) {
+            $data = $this->request->data;
+            $imageName = $data['Product']['image'];
+            debug($imageName);
+            $dir = IMAGES . date('Y');
+            if (!file_exists($dir))
+                mkdir($dir, 0777);
+            $dir .= DS . date('m');
+            if (!file_exists($dir))
+                mkdir($dir, 0777);
+            $f = explode('.', $data['Product']['image']['name']);
+            $ext = '.' . end($f);
+            $filename = Inflector::slug(implode('.', array_slice($f, 0, -1)), '-');
+            move_uploaded_file($data['Product']['image']['tmp_name'], $dir . DS . $filename . $ext);
+            foreach (Configure::read('Media.formats') as $k => $v) {
+                $prefix = substr($k, 0, 1);
+                $size = explode('x', $v);
+                $this->Img->crop($dir . DS . $filename . $ext, $dir . DS . $filename . '_' . $prefix . $ext, $size[0], $size[1]);
+            }
             if ($this->Product->save($this->request->data)) {
+                //Save in BDD
+                $success = $this->Product->Media->save(array(
+                    'name' => $data['Product']['image']['name'],
+                    'url' => date('Y') . '/' . date('m') . '/' . $filename . $ext,
+                    'product_id' => $this->Product->getLastInsertID(),
+                ));
                 $this->Flash->set(__("Produit Ajouté avec succès"), array(
                     'element' => 'notif'
                 ));
@@ -63,6 +88,8 @@ class ProductsController extends AppController {
                 ));
                 $this->redirect(array('action' => 'index', 'admin' => true));
             }
+        } else {
+            $this->request->data = $this->Product->read();
         }
         $marques = $this->Product->Marque->find('list');
         $categories = $this->Product->Category->find('list');
@@ -118,6 +145,54 @@ class ProductsController extends AppController {
                 'element' => 'notif'
             ));
             $this->redirect(array('action' => 'index', 'admin' => true));
+        }
+    }
+
+    public function sort_by($cat = null, $marque = null) {
+        if (!empty($cat) && !empty($marque)) {
+            $this->Paginator->settings = array(
+                'conditions' => array('Product.category_id' => $cat, 'Product.marque_id' => $marque),
+                'limit' => 25,
+                'order' => array(
+                    'Product.created' => 'DESC'
+                )
+            );
+            $data = $this->Paginator->paginate('Product');
+            if (!empty($data)) {
+                $this->set('products', $data);
+            } else {
+                $this->redirect(array('action' => 'index'));
+            }
+        } elseif (!empty($cat)) {
+            $this->Paginator->settings = array(
+                'conditions' => array('Product.category_id' => $cat),
+                'limit' => 25,
+                'order' => array(
+                    'Product.created' => 'DESC'
+                )
+            );
+            $data = $this->Paginator->paginate('Product');
+            if (!empty($data)) {
+                $this->set('products', $data);
+            } else {
+                $this->redirect(array('action' => 'index'));
+            }
+        } elseif (!empty($marque)) {
+            $this->Paginator->settings = array(
+                'conditions' => array('Product.marque_id' => $marque),
+                'limit' => 25,
+                'order' => array(
+                    'Product.created' => 'DESC'
+                )
+            );
+            $data = $this->Paginator->paginate('Product');
+            if (!empty($data)) {
+                $this->set('products', $data);
+            } else {
+                $this->redirect(array('action' => 'index'));
+            }
+        } else {
+            $this->redirect(array('action' => 'index'));
         }
     }
 

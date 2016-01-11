@@ -109,3 +109,8 @@ CakeLog::config('error', array(
 	'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
 	'file' => 'error',
 ));
+Configure::write('Media.formats', array(
+    's' => '100x100',
+    'm' => '400x300',
+    'l' => '960x600'
+));

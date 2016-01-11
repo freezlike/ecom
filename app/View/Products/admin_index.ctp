@@ -12,6 +12,7 @@
                     <th><?php echo __("Prix"); ?></th>
                     <th><?php echo __("Date de création"); ?></th>
                     <th><?php echo __("Date de modification"); ?></th>
+                    <th><?php echo __("Actions"); ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -23,6 +24,19 @@
                         <td><?php echo $product['Product']['price']; ?></td>
                         <td><?php echo $product['Product']['created']; ?></td>
                         <td><?php echo $product['Product']['modified']; ?></td>
+                        <td>
+                            <a href="<?php echo $this->Html->url(array('action' => 'edit', 'id' => $product['Product']['id'])); ?>">
+                                <i class="glyphicon glyphicon-edit"></i>
+                            </a>
+                            &nbsp;
+                            <a href="<?php echo $this->Html->url(array('action' => 'show', 'id' => $product['Product']['id'])); ?>">
+                                <i class="glyphicon glyphicon-eye-open"></i>
+                            </a>
+                            &nbsp;
+                            <a href="<?php echo $this->Html->url(array('action' => 'edit', 'id' => $product['Product']['id'])); ?>">
+                                <i class="glyphicon glyphicon-remove"></i>
+                            </a>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

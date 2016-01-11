@@ -4,7 +4,7 @@ App::uses('Controller', 'Controller');
 
 class AppController extends Controller {
 
-    public $components = array('Flash', 'Session', 'Auth');
+    public $components = array('Flash', 'Session', 'Auth','Img');
 
     public function beforeFilter() {
         parent::beforeFilter();

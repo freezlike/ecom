@@ -6,7 +6,8 @@
         <?php
         echo $this->Form->create('Product', array(
             'inputDefaults' => array('label' => false, 'div' => false),
-            'class' => 'form-horizontal'
+            'class' => 'form-horizontal',
+            'type' => 'file'
         ));
         ?>
         <div class="form-group">
@@ -37,6 +38,12 @@
             <label class="control-label col-sm-2 pull-left"><?php echo __("Marque"); ?></label>
             <div class="col-sm-10">
                 <?php echo $this->Form->input('marque_id', array('class' => 'form-control')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2 pull-left"><?php echo __("Image"); ?></label>
+            <div class="col-sm-10">
+                <?php echo $this->Form->input('image', array('type' => 'file', 'class' => 'form-control')); ?>
             </div>
         </div>
         <div class="form-group">
